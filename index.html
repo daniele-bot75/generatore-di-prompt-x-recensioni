@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Generatore Prompt Recensioni Libro</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        padding: 20px;
+        max-width: 800px;
+        margin: auto;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
+    }
+
+    input, textarea, button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 60px;
+    }
+
+    .buttons {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+    }
+
+    button {
+        cursor: pointer;
+        font-size: 16px;
+    }
+</style>
+</head>
+
+<body>
+
+<h2>Generatore di prompt per recensioni</h2>
+
+<label>Titolo del libro:</label>
+<input type="text" id="titolo">
+
+<label>Quante recensioni devo produrre:</label>
+<input type="number" id="numero" min="1">
+
+<label>Recensione 1:</label>
+<textarea id="r1"></textarea>
+
+<label>Recensione 2:</label>
+<textarea id="r2"></textarea>
+
+<label>Recensione 3:</label>
+<textarea id="r3"></textarea>
+
+<label>Recensione 4:</label>
+<textarea id="r4"></textarea>
+
+<div class="buttons">
+    <button onclick="generaECopia()">Genera risultato e copia negli appunti</button>
+    <button onclick="ricomincia()">Ricomincia</button>
+</div>
+
+<label>Risultato:</label>
+<textarea id="risultato" readonly style="min-height:220px;"></textarea>
+
+<script>
+function generaECopia() {
+    const titolo = document.getElementById("titolo").value;
+    const numero = document.getElementById("numero").value;
+
+    const recensioni = [
+        document.getElementById("r1").value,
+        document.getElementById("r2").value,
+        document.getElementById("r3").value,
+        document.getElementById("r4").value
+    ].filter(r => r.trim() !== "");
+
+    let testo = `Devo scrivere ${numero} recensioni di 3 righe ognuna su questo libro: "${titolo}".\n`;
+    testo += `Ogni recensione che scrivo dovrà contenere riferimenti che fanno riferimento al mio gusto personale, come ad esempio "Mi è piaciuto perchè" oppure "Ho apprezzato la parte in cui"\n`;
+    testo += `Ogni recensione che scrivo dovrà terminare con un consiglio di una parola, come ad esempio "Bello." oppure "Consigliato." oppure "Raccomandato.", scritta come ultimo rigo e senza grassetto\n`;
+    testo += `Puoi aiutarmi, sulla base di ${recensioni.length} recensioni fatte dai miei colleghi, prendendo spunto e senza allontanarti troppo?\n`;
+    testo += `Eccole:\n`;
+
+    recensioni.forEach((rec, index) => {
+        testo += `${index + 1}) ${rec}\n`;
+    });
+
+    testo += `\nProcedi:`;
+
+    const risultato = document.getElementById("risultato");
+    risultato.value = testo;
+
+    // Copia negli appunti (senza alert)
+    risultato.select();
+    risultato.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(risultato.value);
+}
+
+function ricomincia() {
+    document.getElementById("titolo").value = "";
+    document.getElementById("numero").value = "";
+    document.getElementById("r1").value = "";
+    document.getElementById("r2").value = "";
+    document.getElementById("r3").value = "";
+    document.getElementById("r4").value = "";
+    document.getElementById("risultato").value = "";
+}
+</script>
+
+</body>
+</html>
