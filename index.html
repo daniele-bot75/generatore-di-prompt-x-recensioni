@@ -101,7 +101,7 @@ function generaECopia() {
         testo += `${index + 1}) ${rec}\n`;
     });
 
-    testo += `\nProcedi, e mi raccomando: strutturalmente le recensioni non devono risultare simili, e per ognuna genera anche un titolo di max 5 parole, e non inserire righe vuote tra il titolo e la recensione e tra la recensione e la parola consiglio finale:`;
+    testo += `\nProcedi, e mi raccomando: strutturalmente le recensioni non devono risultare simili, devono avere poche parole in comune, non devi usare le stesse parole quanddo aggiungi le impressioni personali in cui dici perchè ti è piaciuto, e per ognuna genera anche un titolo di max 5 parole, e non inserire righe vuote tra il titolo e la recensione e tra la recensione e la parola consiglio finale:`;
 
     const risultato = document.getElementById("risultato");
     risultato.value = testo;
@@ -125,4 +125,5 @@ function ricomincia() {
 
 </body>
 </html>
+
 
